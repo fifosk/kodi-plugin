@@ -20,7 +20,12 @@ matching repository add-on so everything can be hosted directly from GitHub.
    ```bash
    zip -rq repository.localfiles.zip repository.localfiles
    ```
-4. Commit and push everything (including `repo.localfiles/` and the two zip
+4. (Optional) Start the local HTTP server with Range support when hosting from
+   your LAN:
+   ```bash
+   python3 tools/serve_repo.py --directory /Users/fifo/Projects/kodi-plugin
+   ```
+5. Commit and push everything (including `repo.localfiles/` and the two zip
    files) to `main` on GitHub.
 
 GitHub now serves all repo assets from:
