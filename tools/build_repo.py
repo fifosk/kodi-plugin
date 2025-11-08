@@ -42,17 +42,22 @@ def package_addon(addon_id: str, version: str, addon_dir: Path, repo_dir: Path) 
     if zip_path.exists():
         zip_path.unlink()
 
-    base_dir = addon_dir.parent
+    root_arc = Path(addon_id)
     with zipfile.ZipFile(zip_path, "w", compression=zipfile.ZIP_DEFLATED) as zf:
-        # Kodi expects every zip to include explicit directory entries.
+        # Ensure Kodi sees explicit directory entries whose root matches the add-on id.
         dir_paths = [addon_dir, *sorted(p for p in addon_dir.rglob("*") if p.is_dir())]
         for directory in dir_paths:
-            arcname = directory.relative_to(base_dir).as_posix().rstrip("/") + "/"
-            zf.writestr(arcname, b"")
+            rel_dir = directory.relative_to(addon_dir)
+            arcname = (root_arc / rel_dir).as_posix().rstrip("/") + "/"
+            info = zipfile.ZipInfo(arcname)
+            info.external_attr = 0o40775 << 16  # drwxrwxr-x
+            zf.writestr(info, b"")
 
-        for path in addon_dir.rglob("*"):
+        for path in sorted(addon_dir.rglob("*")):
             if path.is_file():
-                zf.write(path, path.relative_to(base_dir).as_posix())
+                rel_file = path.relative_to(addon_dir)
+                arcname = (root_arc / rel_file).as_posix()
+                zf.write(path, arcname)
 
     md5_path = zip_path.with_suffix(zip_path.suffix + ".md5")
     md5_path.write_text(compute_md5(zip_path), encoding="utf-8")
