@@ -2,7 +2,7 @@
 <addons>
 <addon id="service.subtitles.localfiles"
        name="Local Subtitle Files"
-       version="1.0.1"
+       version="1.0.2"
        provider-name="fifosk">
   <requires>
     <import addon="xbmc.python" version="3.0.0"/>
