@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="repository.localfiles"
+       name="Local Subtitles Repo"
+       version="1.0.0"
+       provider-name="fifosk">
+  <extension point="xbmc.addon.repository" name="Local Subtitles Repo">
+    <info compressed="false">http://192.168.1.9:8080/addons.xml</info>
+    <checksum>http://192.168.1.9:8080/addons.xml.md5</checksum>
+    <datadir zip="true">http://192.168.1.9:8080/</datadir>
+  </extension>
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en_GB">Local repository that serves the Local Subtitle Files add-on.</summary>
+    <description lang="en_GB">Host repo.localfiles over HTTP and install this repository zip to pull the add-on from it.</description>
+    <platform>all</platform>
+    <assets>
+      <icon>icon.png</icon>
+    </assets>
+  </extension>
+</addon>

@@ -1,6 +1,6 @@
 <settings>
   <category label="10000">
-    <setting id="subs_dir" type="folder" label="10001" default="special://home/subtitles" option="writeable" />
+    <setting id="subs_dir" type="folder" label="10001" default="nfs://192.168.1.57/volume1/Data/Download/Subtitles" option="writeable" />
     <setting id="recursive" type="bool" label="10002" default="true" />
   </category>
 </settings>
