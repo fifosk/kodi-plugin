@@ -57,6 +57,8 @@ def package_addon(addon_id: str, version: str, addon_dir: Path, repo_dir: Path) 
 
         for path in sorted(addon_dir.rglob("*")):
             if path.is_file():
+                if path.name == ".DS_Store":
+                    continue
                 rel_file = path.relative_to(addon_dir)
                 arcname = (root_arc / rel_file).as_posix()
                 zf.write(path, arcname)

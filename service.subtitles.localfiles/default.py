@@ -53,10 +53,17 @@ def apply_file(qpath):
     if not xbmcvfs.exists(path):
         xbmcgui.Dialog().notification('Local Subtitles','File not found',xbmcgui.NOTIFICATION_ERROR,3000)
         return
-    listitem = xbmcgui.ListItem(path=path)
-    listitem.setMimeType('text/plain')
-    listitem.setContentLookup(False)
-    xbmcplugin.setResolvedUrl(HANDLE, True, listitem)
+    try:
+        xbmc.Player().showSubtitles(True)
+        xbmc.Player().setSubtitles(path)
+        xbmcgui.Dialog().notification('Local Subtitles', os.path.basename(path), xbmcgui.NOTIFICATION_INFO, 2500)
+        listitem = xbmcgui.ListItem(path=path)
+        listitem.setMimeType('text/plain')
+        listitem.setContentLookup(False)
+        xbmcplugin.setResolvedUrl(HANDLE, True, listitem)
+    except Exception as exc:
+        xbmcplugin.setResolvedUrl(HANDLE, False, xbmcgui.ListItem())
+        xbmcgui.Dialog().ok('Local Subtitles', f'Failed:\n{path}\n\n{exc}')
 
 if __name__ == "__main__":
     action=PARAMS.get('action','list')
