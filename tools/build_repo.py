@@ -51,6 +51,7 @@ def package_addon(addon_id: str, version: str, addon_dir: Path, repo_dir: Path) 
             arcname = (root_arc / rel_dir).as_posix().rstrip("/") + "/"
             info = zipfile.ZipInfo(arcname)
             info.external_attr = 0o40775 << 16  # drwxrwxr-x
+            info.compress_type = zipfile.ZIP_STORED
             zf.writestr(info, b"")
 
         for path in sorted(addon_dir.rglob("*")):
