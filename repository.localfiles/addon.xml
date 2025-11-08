@@ -1,7 +1,7 @@
 <?xml version="1.0" encoding="UTF-8" standalone="yes"?>
 <addon id="repository.localfiles"
        name="Local Subtitles Repo"
-       version="1.0.0"
+       version="1.0.1"
        provider-name="fifosk">
   <extension point="xbmc.addon.repository" name="Local Subtitles Repo">
     <info compressed="false">http://192.168.1.9:8080/repo.localfiles/addons.xml</info>
