@@ -7,9 +7,7 @@
   <requires>
     <import addon="xbmc.python" version="3.0.0"/>
   </requires>
-  <extension point="xbmc.python.subtitles" library="default.py">
-    <provides>subtitles</provides>
-  </extension>
+  <extension point="xbmc.subtitle.module" library="default.py" />
   <extension point="xbmc.addon.metadata">
     <summary lang="en_GB">List and load local subtitle files.</summary>
     <description lang="en_GB">Displays all subtitles from a configured directory and loads them directly into Kodi.</description>
