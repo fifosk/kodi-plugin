@@ -3,6 +3,7 @@
 
 import argparse
 import hashlib
+import shutil
 import sys
 import xml.etree.ElementTree as ET
 import zipfile
@@ -59,6 +60,14 @@ def package_addon(addon_id: str, version: str, addon_dir: Path, repo_dir: Path) 
                 rel_file = path.relative_to(addon_dir)
                 arcname = (root_arc / rel_file).as_posix()
                 zf.write(path, arcname)
+
+    # Expose media assets alongside the packaged zip so Kodi can fetch icons without
+    # downloading the full archive.
+    icon_src = addon_dir / "resources" / "media" / "icon.png"
+    if icon_src.exists():
+        icon_dest = package_dir / "resources" / "media" / "icon.png"
+        icon_dest.parent.mkdir(parents=True, exist_ok=True)
+        shutil.copy2(icon_src, icon_dest)
 
     md5_path = zip_path.with_suffix(zip_path.suffix + ".md5")
     md5_path.write_text(compute_md5(zip_path), encoding="utf-8")
