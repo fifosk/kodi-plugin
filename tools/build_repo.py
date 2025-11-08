@@ -44,6 +44,12 @@ def package_addon(addon_id: str, version: str, addon_dir: Path, repo_dir: Path) 
 
     base_dir = addon_dir.parent
     with zipfile.ZipFile(zip_path, "w", compression=zipfile.ZIP_DEFLATED) as zf:
+        # Kodi expects every zip to include explicit directory entries.
+        dir_paths = [addon_dir, *sorted(p for p in addon_dir.rglob("*") if p.is_dir())]
+        for directory in dir_paths:
+            arcname = directory.relative_to(base_dir).as_posix().rstrip("/") + "/"
+            zf.writestr(arcname, b"")
+
         for path in addon_dir.rglob("*"):
             if path.is_file():
                 zf.write(path, path.relative_to(base_dir).as_posix())
