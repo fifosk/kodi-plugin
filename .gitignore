@@ -1,2 +1,5 @@
 *.zip
 *.zip.md5
+*.zip
+*.zip.md5
+.DS_Store
