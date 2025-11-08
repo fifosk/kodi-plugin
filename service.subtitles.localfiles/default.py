@@ -36,11 +36,12 @@ def list_files():
     recursive = ADDON.getSettingBool('recursive')
     found = False
     for path in walk_subs(subs_dir, recursive):
-        label=os.path.basename(path)
-        li=xbmcgui.ListItem(label=label)
+        label=os.path.basename(path) or path
+        li=xbmcgui.ListItem(label=label, label2=os.path.dirname(path))
         li.setProperty('sync','true')
         li.setProperty('hearing_imp','false')
-        url=f"{BASE}?action=apply&path={urllib.parse.quote(path)}"
+        li.setProperty('language','')
+        url=f"{BASE}?action=apply&path={urllib.parse.quote(path, safe='')}"
         xbmcplugin.addDirectoryItem(handle=HANDLE,url=url,listitem=li,isFolder=False)
         found=True
     xbmcplugin.endOfDirectory(HANDLE,succeeded=True,cacheToDisc=False)
@@ -52,13 +53,10 @@ def apply_file(qpath):
     if not xbmcvfs.exists(path):
         xbmcgui.Dialog().notification('Local Subtitles','File not found',xbmcgui.NOTIFICATION_ERROR,3000)
         return
-    try:
-        xbmc.Player().setSubtitles(path)
-        xbmc.Player().showSubtitles(True)
-        xbmcgui.Dialog().notification('Local Subtitles',os.path.basename(path),xbmcgui.NOTIFICATION_INFO,2500)
-    except Exception as e:
-        xbmcgui.Dialog().ok('Local Subtitles',f'Failed:\n{path}\n\n{e}')
-    xbmcplugin.endOfDirectory(HANDLE,succeeded=True)
+    listitem = xbmcgui.ListItem(path=path)
+    listitem.setMimeType('text/plain')
+    listitem.setContentLookup(False)
+    xbmcplugin.setResolvedUrl(HANDLE, True, listitem)
 
 if __name__ == "__main__":
     action=PARAMS.get('action','list')
