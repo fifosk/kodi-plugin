@@ -1,0 +1,6 @@
+<settings>
+  <category label="10000">
+    <setting id="subs_dir" type="folder" label="10001" default="special://home/subtitles" option="writeable" />
+    <setting id="recursive" type="bool" label="10002" default="true" />
+  </category>
+</settings>

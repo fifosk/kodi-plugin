@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="yes"?>
+<addon id="service.subtitles.localfiles"
+       name="Local Subtitle Files"
+       version="1.0.0"
+       provider-name="fifosk">
+  <requires>
+    <import addon="xbmc.python" version="3.0.0"/>
+  </requires>
+  <extension point="xbmc.python.subtitles" library="default.py" />
+  <extension point="xbmc.addon.metadata">
+    <summary lang="en_GB">List and load local subtitle files.</summary>
+    <description lang="en_GB">Displays all subtitles from a configured directory and loads them directly into Kodi.</description>
+    <platform>all</platform>
+    <license>GPL-3.0-or-later</license>
+    <assets>
+      <icon>resources/media/icon.png</icon>
+    </assets>
+  </extension>
+</addon>

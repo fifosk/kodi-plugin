@@ -1,0 +1,15 @@
+msgid ""
+msgstr ""
+"Language: en_GB\n"
+
+msgctxt "#10000"
+msgid "Local Subtitles"
+msgstr "Local Subtitles"
+
+msgctxt "#10001"
+msgid "Subtitle directory"
+msgstr "Subtitle directory"
+
+msgctxt "#10002"
+msgid "Scan subfolders"
+msgstr "Scan subfolders"
